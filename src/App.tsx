@@ -1,4 +1,5 @@
 import Dice, { IDice } from './Dice';
+import React  from 'react';
 import "./App.css";
 
 class DiceInstance implements IDice { 
@@ -18,10 +19,12 @@ class DiceInstance implements IDice {
 
 function App() {
   let dice_num: number = 10;
-  let dices: DiceInstance[] = [];
+  let dices_: DiceInstance[] = [];
   for (let i = 0; i < dice_num; i++) {
-    dices.push(new DiceInstance());
+    dices_.push(new DiceInstance());
   }
+  const [dices, setDices] 
+    = React.useState<DiceInstance[]>(dices_);
   
   return (
     <main>    
@@ -39,10 +42,13 @@ function App() {
       <button 
         className='tenzies-roll'
         onClick={() => {
-          for (let i = 0; i < dice_num; i++) {
-            dices[i].roll();
-            console.log(dices[i].getValue());
-          }
+          setDices((prevDices) => {
+            prevDices.forEach((dice) => {
+              dice.roll();
+              console.log(dice.getValue());
+            });
+            return [...prevDices];
+          })
         }}
       >
         Roll
