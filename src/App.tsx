@@ -1,5 +1,6 @@
 import Dice, { IDice } from './Dice';
 import React  from 'react';
+import Confetti from 'react-confetti';
 import "./App.css";
 
 class DiceInstance implements IDice { 
@@ -44,6 +45,15 @@ function App() {
     }
   }, [dices]);
 
+  React.useEffect(() => {
+    fetch('https://opentdb.com/api.php?amount=5')
+      .then((response) => response.text())
+      .then((text) => {
+        console.log('fetch data');
+        setRound(text.length);
+      });
+  }, []);
+
   let SetDice = (id: number, selected: boolean) => {
     setDices((prevDices) => {
       return prevDices.map((dice) => {
@@ -79,6 +89,7 @@ function App() {
 
   return (
     <main>    
+      { GameOver && <Confetti /> }
       <h1>Tenzies</h1>
       <div className='tenzies-describe'>Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</div>
       <div className='tenzies-describe'>{`You have rolled ${round} Round`}</div>
