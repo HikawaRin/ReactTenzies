@@ -45,14 +45,14 @@ function App() {
     }
   }, [dices]);
 
-  React.useEffect(() => {
-    fetch('https://opentdb.com/api.php?amount=5')
-      .then((response) => response.text())
-      .then((text) => {
-        console.log('fetch data');
-        setRound(text.length);
-      });
-  }, []);
+  // React.useEffect(() => {
+  //   fetch('https://opentdb.com/api.php?amount=5')
+  //     .then((response) => response.text())
+  //     .then((text) => {
+  //       console.log('fetch data');
+  //       setRound(text.length);
+  //     });
+  // }, []);
 
   let SetDice = (id: number, selected: boolean) => {
     setDices((prevDices) => {
