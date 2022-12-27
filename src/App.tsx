@@ -36,6 +36,14 @@ function App() {
   const [round, setRound] = React.useState<number>(0);
   const [GameOver, setGameOver] = React.useState<boolean>(false);
 
+  React.useEffect(() => {
+    const allSelected = dices.every((dice) => dice.isSelected());
+    const allSameValue = dices.every((dice) => dice.getValue() === dices[0].getValue());
+    if (allSelected && allSameValue) {
+      setGameOver(true);
+    }
+  }, [dices]);
+
   let SetDice = (id: number, selected: boolean) => {
     setDices((prevDices) => {
       return prevDices.map((dice) => {
